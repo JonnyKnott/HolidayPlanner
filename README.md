@@ -7,6 +7,15 @@ Holiday planning application with a .NET 9 backend API and React/TypeScript web 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
+## Setup
+
+Copy the example environment file and set your SQL Server password before running docker compose:
+```bash
+cp .env.example .env
+```
+
+Edit `.env` if you want to use a different password, then continue with the steps below.
+
 ## Getting started
 
 **Start local dependencies (SQL Server + MongoDB):**
@@ -19,7 +28,7 @@ docker compose up -d
 cd src/HolidayPlanner.Api
 dotnet run
 ```
-API will be available at `https://localhost:5001`. Swagger UI at `https://localhost:5001/swagger`.
+API will be available at `https://localhost:7169`. Swagger UI at `https://localhost:7169/swagger`.
 
 **Run unit tests:**
 ```bash

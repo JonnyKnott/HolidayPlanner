@@ -1,6 +1,7 @@
-@HolidayPlanner.Api_HostAddress = http://localhost:5219
+@HolidayPlanner.Api_HostAddress = https://localhost:7169
 
-GET {{HolidayPlanner.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+### Health check
+GET {{HolidayPlanner.Api_HostAddress}}/health
 
-###
+### Readiness check
+GET {{HolidayPlanner.Api_HostAddress}}/ready

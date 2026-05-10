@@ -44,3 +44,6 @@ app.MapHealthChecks("/health");
 app.MapHealthChecks("/ready");
 
 app.Run();
+
+// Required for WebApplicationFactory in integration tests
+public partial class Program { }

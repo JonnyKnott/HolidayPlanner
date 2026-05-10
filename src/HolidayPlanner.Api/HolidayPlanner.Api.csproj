@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HolidayPlanner.Application\HolidayPlanner.Application.csproj" />
     <ProjectReference Include="..\HolidayPlanner.Infrastructure\HolidayPlanner.Infrastructure.csproj" />
+    <ProjectReference Include="..\HolidayPlanner.Domain\HolidayPlanner.Domain.csproj" />
   </ItemGroup>
 
 </Project>
