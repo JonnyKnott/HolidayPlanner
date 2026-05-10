@@ -24,19 +24,21 @@ Edit `.env` if you want to use a different password, then continue with the step
 
 - Set an environment variable before running `dotnet run`:
   ```bash
-  export ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"
+  export ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=<your-sa-password>;TrustServerCertificate=True;"
   ```
   On Windows (PowerShell):
   ```powershell
-  $env:ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"
+  $env:ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=<your-sa-password>;TrustServerCertificate=True;"
   ```
 
 - Or use .NET User Secrets (recommended for local development — never committed to source control):
   ```bash
-  dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;" --project src/HolidayPlanner.Api
+  dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=<your-sa-password>;TrustServerCertificate=True;" --project src/HolidayPlanner.Api
   ```
 
-Replace `YourStrong@Passw0rd` with the value of `SA_PASSWORD` from your `.env` file.
+Replace `<your-sa-password>` with the value of `SA_PASSWORD` from your `.env` file.
+
+> **Note:** `TrustServerCertificate=True` in the connection string is for local development only — it bypasses SSL certificate validation. Remove it from any production connection string.
 
 ## Getting started
 

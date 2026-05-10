@@ -3,9 +3,10 @@ namespace HolidayPlanner.Domain.Common;
 public abstract class BaseEntity
 {
     public Guid Id { get; init; } = Guid.CreateVersion7();
-    public DateTimeOffset CreatedOn { get; private set; }
-    public DateTimeOffset ModifiedOn { get; private set; }
 
-    internal void SetCreatedOn(DateTimeOffset timestamp) => CreatedOn = timestamp;
-    internal void SetModifiedOn(DateTimeOffset timestamp) => ModifiedOn = timestamp;
+    /// <summary>Set and maintained by the EF Core save interceptor in Infrastructure.</summary>
+    public DateTimeOffset CreatedOn { get; private set; }
+
+    /// <summary>Set and maintained by the EF Core save interceptor in Infrastructure.</summary>
+    public DateTimeOffset ModifiedOn { get; private set; }
 }

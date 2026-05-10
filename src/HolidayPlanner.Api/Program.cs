@@ -6,7 +6,7 @@ using HolidayPlanner.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure();
 
 builder.Services.AddControllers();
 
@@ -40,8 +40,8 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.MapControllers();
-app.MapHealthChecks("/health");
-app.MapHealthChecks("/ready");
+app.MapHealthChecks("/health"); // liveness — shallow, no dependency checks
+app.MapHealthChecks("/ready");  // readiness — add dependency checks here as features are added
 
 app.Run();
 
