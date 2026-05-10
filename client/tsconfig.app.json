@@ -29,8 +29,9 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    // Required to acknowledge TypeScript 6.x breaking changes. Review and remove deprecated
-    // compiler options when upgrading TypeScript beyond 6.x.
+    // Suppresses the TS6.0 deprecation of `allowImportingTsExtensions`.
+    // Remove this line and the `allowImportingTsExtensions` option when the project
+    // no longer requires it (e.g. when bundler module resolution handles it natively).
     "ignoreDeprecations": "6.0"
   },
   "include": ["src"]

@@ -1,3 +1,5 @@
+// defineConfig imported from vitest/config (not vite) to resolve the TypeScript
+// type conflict with the `test` property — required for Vitest 4.x + Vite 8.x.
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import path from 'path'
