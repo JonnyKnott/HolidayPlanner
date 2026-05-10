@@ -1,9 +1,10 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
 import App from '../App'
 
 describe('App', () => {
-  it('mounts without throwing', () => {
+  it('renders without crashing', () => {
     render(<App />)
-    expect(document.body).toBeDefined()
+    expect(screen.getByText('HolidayPlanner')).toBeDefined()
   })
 })

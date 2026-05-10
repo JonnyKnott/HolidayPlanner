@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -6,22 +7,24 @@ import { RouterProvider } from 'react-router-dom'
 import { theme } from '@/theme/theme'
 import { router } from '@/routes'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000,
-      retry: 1,
-    },
-  },
-})
-
 function App() {
+  const [queryClient] = useState(
+    () => new QueryClient({
+      defaultOptions: {
+        queries: {
+          staleTime: 1000 * 60 * 5,
+          retry: 1,
+        },
+      },
+    })
+  )
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
       </QueryClientProvider>
     </ThemeProvider>
   )
