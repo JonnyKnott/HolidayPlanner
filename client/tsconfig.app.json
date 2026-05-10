@@ -29,7 +29,8 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    // suppress TS6.0 deprecation warning: 'verbatimModuleSyntax' supersedes the older 'isolatedModules' flag; remove when upgrading TypeScript past 6.x
+    // Required to acknowledge TypeScript 6.x breaking changes. Review and remove deprecated
+    // compiler options when upgrading TypeScript beyond 6.x.
     "ignoreDeprecations": "6.0"
   },
   "include": ["src"]
