@@ -9,12 +9,34 @@ Holiday planning application with a .NET 9 backend API and React/TypeScript web 
 
 ## Setup
 
-Copy the example environment file and set your SQL Server password before running docker compose:
+**Docker dependencies (SQL Server + MongoDB):**
+
+Copy the example environment file and set your SQL Server password. This `.env` file is used by docker-compose only — it is not read by the .NET application:
 ```bash
 cp .env.example .env
 ```
 
 Edit `.env` if you want to use a different password, then continue with the steps below.
+
+**Supplying the database password to the .NET app:**
+
+`appsettings.Development.json` intentionally omits the SQL Server password. Supply it at runtime using one of these approaches:
+
+- Set an environment variable before running `dotnet run`:
+  ```bash
+  export ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"
+  ```
+  On Windows (PowerShell):
+  ```powershell
+  $env:ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;"
+  ```
+
+- Or use .NET User Secrets (recommended for local development — never committed to source control):
+  ```bash
+  dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,1433;Database=HolidayPlanner;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;" --project src/HolidayPlanner.Api
+  ```
+
+Replace `YourStrong@Passw0rd` with the value of `SA_PASSWORD` from your `.env` file.
 
 ## Getting started
 

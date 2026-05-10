@@ -9,7 +9,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // Data store registrations added per feature
+        _ = configuration; // Data store registrations added per feature
         return services;
     }
 }

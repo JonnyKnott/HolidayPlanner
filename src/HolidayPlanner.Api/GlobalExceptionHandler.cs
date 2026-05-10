@@ -7,16 +7,19 @@ namespace HolidayPlanner.Api;
 
 internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
-    private static readonly Action<ILogger, string, Exception> LogUnhandledException =
-        LoggerMessage.Define<string>(LogLevel.Error, new EventId(0, "UnhandledException"), "Unhandled exception: {Message}");
+    private static readonly Action<ILogger, string, Exception> LogError =
+        LoggerMessage.Define<string>(LogLevel.Error, new EventId(1, "UnhandledException"),
+            "Unhandled exception: {Message}");
+
+    private static readonly Action<ILogger, string, Exception> LogWarning =
+        LoggerMessage.Define<string>(LogLevel.Warning, new EventId(2, "HandledException"),
+            "Handled exception mapped to client error: {Message}");
 
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,
         Exception exception,
         CancellationToken cancellationToken)
     {
-        LogUnhandledException(logger, exception.Message, exception);
-
         var (statusCode, title) = exception switch
         {
             ValidationException => (StatusCodes.Status422UnprocessableEntity, "Validation failed"),
@@ -24,6 +27,11 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
             DomainException => (StatusCodes.Status409Conflict, "A domain rule was violated"),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred")
         };
+
+        if (statusCode >= 500)
+            LogError(logger, exception.Message, exception);
+        else
+            LogWarning(logger, exception.Message, exception);
 
         var problemDetails = new ProblemDetails
         {
