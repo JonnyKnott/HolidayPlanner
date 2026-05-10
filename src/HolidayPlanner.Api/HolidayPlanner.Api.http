@@ -1,0 +1,7 @@
+@HolidayPlanner.Api_HostAddress = https://localhost:7169
+
+### Health check
+GET {{HolidayPlanner.Api_HostAddress}}/health
+
+### Readiness check
+GET {{HolidayPlanner.Api_HostAddress}}/ready
