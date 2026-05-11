@@ -4,11 +4,14 @@ using System.Text.Json;
 using FluentAssertions;
 using HolidayPlanner.Application.Test.Commands.CreateTestHoliday;
 using HolidayPlanner.Domain.Test;
+using HolidayPlanner.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HolidayPlanner.IntegrationTests.Test;
 
-public sealed class TestHolidaysApiTests : IClassFixture<IntegrationTestFactory>
+public sealed class TestHolidaysApiTests : IClassFixture<IntegrationTestFactory>, IAsyncLifetime
 {
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -16,14 +19,25 @@ public sealed class TestHolidaysApiTests : IClassFixture<IntegrationTestFactory>
     };
 
     private readonly HttpClient _client;
+    private readonly IntegrationTestFactory _factory;
 
     public TestHolidaysApiTests(IntegrationTestFactory factory)
     {
+        _factory = factory;
         _client = factory.CreateClient(new WebApplicationFactoryClientOptions
         {
             BaseAddress = new Uri("https://localhost"),
         });
     }
+
+    public async Task InitializeAsync()
+    {
+        using var scope = _factory.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<HolidayPlannerDbContext>();
+        await db.TestHolidays.ExecuteDeleteAsync();
+    }
+
+    public Task DisposeAsync() => Task.CompletedTask;
 
     // ── GET /api/v1/test/holidays ────────────────────────────────────────────
 
@@ -69,7 +83,7 @@ public sealed class TestHolidaysApiTests : IClassFixture<IntegrationTestFactory>
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
     }
 
-    // ── GET /api/v1/test/holidays/{id} ──────────────────────────────────────────
+    // ── GET /api/v1/test/holidays/{id} ────────────────────────────────────────────
 
     [Fact]
     public async Task GetById_WhenHolidayExists_Returns200WithHoliday()
@@ -93,7 +107,7 @@ public sealed class TestHolidaysApiTests : IClassFixture<IntegrationTestFactory>
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
-    // ── PUT /api/v1/test/holidays/{id} ──────────────────────────────────────────
+    // ── PUT /api/v1/test/holidays/{id} ───────────────────────────────────────────
 
     [Fact]
     public async Task Put_WhenHolidayExists_Returns204AndUpdatesData()
