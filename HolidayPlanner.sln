@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{3B2B98AE-C48D-4DCB-8A81-3604885C5594}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60080}") = "client", "client\client.esproj", "{38721158-0207-489A-A65B-44E6CEE8B2AC}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60080}") = "HolidayPlanner.Client", "client\HolidayPlanner.Client.esproj", "{38721158-0207-489A-A65B-44E6CEE8B2AC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HolidayPlanner.Tests", "tests\HolidayPlanner.Tests\HolidayPlanner.Tests.csproj", "{6938ED27-924B-41DB-8F93-6AD529A4BCC7}"
 EndProject
