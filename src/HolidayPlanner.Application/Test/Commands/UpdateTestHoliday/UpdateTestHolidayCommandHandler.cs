@@ -11,7 +11,7 @@ public sealed class UpdateTestHolidayCommandHandler(
         UpdateTestHolidayCommand request,
         CancellationToken cancellationToken)
     {
-        var entity = await repository.GetByIdAsync(request.Id, cancellationToken)
+        var entity = await repository.GetByIdTrackedAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Domain.Test.TestHoliday), request.Id);
 
         entity.Name = request.Name;

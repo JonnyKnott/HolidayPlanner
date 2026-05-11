@@ -17,19 +17,19 @@ internal sealed class TestHolidayRepository(HolidayPlannerDbContext dbContext) :
     public async Task<TestHoliday?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await dbContext.TestHolidays
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+    }
+
+    public async Task<TestHoliday?> GetByIdTrackedAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await dbContext.TestHolidays
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task AddAsync(TestHoliday entity, CancellationToken cancellationToken = default)
     {
         await dbContext.TestHolidays.AddAsync(entity, cancellationToken);
-    }
-
-    public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        return await dbContext.TestHolidays
-            .AsNoTracking()
-            .AnyAsync(x => x.Id == id, cancellationToken);
     }
 
     public Task DeleteAsync(TestHoliday entity, CancellationToken cancellationToken = default)

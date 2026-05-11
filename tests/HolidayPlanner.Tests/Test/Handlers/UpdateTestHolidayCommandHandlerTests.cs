@@ -27,7 +27,7 @@ public sealed class UpdateTestHolidayCommandHandlerTests
             StartDate = new DateOnly(2026, 7, 1),
             EndDate = new DateOnly(2026, 7, 14),
         };
-        _repository.GetByIdAsync(holiday.Id, Arg.Any<CancellationToken>()).Returns(holiday);
+        _repository.GetByIdTrackedAsync(holiday.Id, Arg.Any<CancellationToken>()).Returns(holiday);
 
         var command = new UpdateTestHolidayCommand(
             Id: holiday.Id,
@@ -49,7 +49,7 @@ public sealed class UpdateTestHolidayCommandHandlerTests
     public async Task Handle_WhenEntityDoesNotExist_ThrowsNotFoundException()
     {
         var id = Guid.NewGuid();
-        _repository.GetByIdAsync(id, Arg.Any<CancellationToken>()).Returns((TestHoliday?)null);
+        _repository.GetByIdTrackedAsync(id, Arg.Any<CancellationToken>()).Returns((TestHoliday?)null);
 
         var command = new UpdateTestHolidayCommand(
             Id: id,

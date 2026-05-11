@@ -27,7 +27,7 @@ public sealed class DeleteTestHolidayCommandHandlerTests
             StartDate = new DateOnly(2026, 3, 1),
             EndDate = new DateOnly(2026, 3, 7),
         };
-        _repository.GetByIdAsync(holiday.Id, Arg.Any<CancellationToken>()).Returns(holiday);
+        _repository.GetByIdTrackedAsync(holiday.Id, Arg.Any<CancellationToken>()).Returns(holiday);
 
         await _sut.Handle(new DeleteTestHolidayCommand(holiday.Id), CancellationToken.None);
 
@@ -39,7 +39,7 @@ public sealed class DeleteTestHolidayCommandHandlerTests
     public async Task Handle_WhenEntityDoesNotExist_ThrowsNotFoundException()
     {
         var id = Guid.NewGuid();
-        _repository.GetByIdAsync(id, Arg.Any<CancellationToken>()).Returns((TestHoliday?)null);
+        _repository.GetByIdTrackedAsync(id, Arg.Any<CancellationToken>()).Returns((TestHoliday?)null);
 
         var act = async () => await _sut.Handle(new DeleteTestHolidayCommand(id), CancellationToken.None);
 
