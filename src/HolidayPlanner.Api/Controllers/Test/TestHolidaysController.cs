@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using HolidayPlanner.Api.Models.Test;
 using HolidayPlanner.Application.Test.Commands.CreateTestHoliday;
 using HolidayPlanner.Application.Test.Commands.DeleteTestHoliday;
 using HolidayPlanner.Application.Test.Commands.UpdateTestHoliday;
@@ -72,9 +73,3 @@ public sealed class TestHolidaysController(ISender sender) : ControllerBase
         return NoContent();
     }
 }
-
-public sealed record UpdateTestHolidayRequest(
-    string Name,
-    string Destination,
-    DateOnly StartDate,
-    DateOnly EndDate);
