@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0">
+  <PropertyGroup>
+    <StartupCommand>npm run dev</StartupCommand>
+    <BuildCommand>npm run build</BuildCommand>
+    <CleanCommand>node -e "require('fs').rmSync('dist', { recursive: true, force: true })"</CleanCommand>
+    <PublicRootFolder>public</PublicRootFolder>
+    <RootFolder>.</RootFolder>
+  </PropertyGroup>
+</Project>
